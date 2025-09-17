@@ -79,7 +79,7 @@
       min-height: 100vh; padding: 10px; justify-content: center; color: white;
       background-image: 
         linear-gradient(to bottom, rgba(0,0,0,0.3) 60%, var(--bg-color) 100%),
-        url('galery/img3.png');
+        url('galery/img1.png');
       background-size: cover; background-position: center; background-repeat: no-repeat;
     }
     #home .intro-text h1 {
@@ -267,13 +267,12 @@
 
 <div id="music-control" class="music-control"><i class='bx bx-music'></i></div>
 <audio id="background-music" loop>
-  <source src="Yovie & Nuno - Janji Suci (Video Clip).mp3" type="audio/mpeg">
+  <source src="lagu.mp3" type="audio/mpeg">
   Browser Anda tidak mendukung elemen audio.
 </audio>
   <script>
     const audio = document.getElementById("background-music");
     let musicStarted = false;
-
     // Trigger musik saat user scroll pertama kali
     window.addEventListener("scroll", function() {
       if (!musicStarted) {
@@ -285,6 +284,7 @@
         musicStarted = true; // biar ga play berkali-kali
       }
     });
+    <audio id="bg-music" src="galery/music.mp3" autoplay loop></audio>
   </script>
 
 
@@ -351,7 +351,7 @@
   <section id="acara" class="page">
     <div class="section-title fade-up"><h2>Detail Acara</h2></div>
     <div class="card slide-left">
-      <h3><i class='bx bx-heart'></i> Akad Nikah</h3>a
+      <h3><i class='bx bx-heart'></i> Akad Nikah</h3>
       <p><strong>Kamis, 25 September 2025</strong></p>
       <p>Pukul 08:00 WIB - Selesai</p>
       <p>Rumah Mempleai Pria</p>
