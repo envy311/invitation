@@ -119,8 +119,6 @@ body {
 
 <div id="welcome-page" class="welcome-page">
     <div class="welcome-content">
-        <p class="fade-up">Kepada Yth.</p>
-        <p class="guest-name fade-in">Bapak/Ibu Tamu</p>
         <p class="fade-up">Dengan hormat, izinkan kami mengundang Anda untuk merayakan cinta kami.</p>
 
         <div class="countdown-timer fade-up">
@@ -151,11 +149,6 @@ body {
 </div>
 
 <script>
-    // Ambil nama tamu dari URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestName = urlParams.get('to') || 'Aris';
-    document.querySelector('.guest-name').innerText = guestName;
-
     // Countdown
     const weddingDate = new Date('September 25, 2025 08:00:00').getTime();
     const countdownFunction = setInterval(function() {
@@ -198,5 +191,6 @@ body {
 
 </body>
 </html>
+
 
 
