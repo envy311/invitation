@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan | Agus & Yuni</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+  <style>
+    :root {
+      --primary-color: #302F2F;
+      --secondary-color: #ffffff;
+      --dark-color: #333;
+      --bg-color: #ffffff;
+      --font-script: 'Imperial Script', cursive;
+      --font-body: 'Raleway', sans-serif;
+      --gold: #d4af37;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--dark-color);
+      overflow-x: hidden;
+      padding-bottom: 70px;
+      font-size: 14px;
+      background: #fafafa;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .section-title,
+    .card h3,
+    .form-group label,
+    .wish-item .nama {
+      font-weight: normal !important;
+    }
+
+    .batik-bg {
+      position: fixed; top: 0; left: 0; width: 200%; height: 100%;
+      background: url('batik.png') repeat; /* tambahkan file batik */
+      background-size: 400px; opacity: 0.08; z-index: -1;
+      animation: slideBatik 80s linear infinite;
+    }
+    @keyframes slideBatik {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .container { width: 100%; max-width: 480px; margin: 0 auto; }
+
+    .page {
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: center; text-align: center;
+      padding: 55px 20px; position: relative; width: 100%;
+      overflow: hidden;
+    }
+    .page:nth-child(even) { background: #f9f9f9; }
+
+    /* Ornament floral */
+    .ornament {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.50;
+      pointer-events: none;
+    }
+    .ornament img { width: 150px; height: auto; }
+    .ornament-top-left { top: 10px; left: 10px; }
+    .ornament-top-right { top: 10px; right: 10px; }
+    .ornament-bottom-left { bottom: 10px; left: 10px; }
+    .ornament-bottom-right { bottom: 10px; right: 10px; }
+
+    /* HOME */
+    #home {
+      min-height: 100vh; padding: 10px; justify-content: center; color: white;
+      background-image: 
+        linear-gradient(to bottom, rgba(0,0,0,0.3) 60%, var(--bg-color) 100%),
+        url('galery/img3.png');
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+    }
+    #home .intro-text h1 {
+      font-family: var(--font-script); font-size: 4rem; color: white;
+      margin: 10px 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    #home .intro-text p { font-size: 1.3rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.7); }
+
+    .scroll-down-icon {
+      position: absolute; bottom: 80px; left: 50%;
+      transform: translateX(-50%); color: white; font-size: 3rem;
+      text-decoration: none; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+      animation: bounce-scroll 2s infinite;
+    }
+    @keyframes bounce-scroll {
+      0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* Title */
+    .text { font-family: var(--font-script); font-size: 1.8rem; }
+    .text2 { font-family: var(--font-script); font-size: 3.5rem; }
+
+    .section-title {
+      font-family: var(--font-script);
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 35px;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+      z-index: 2;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 150px;
+      background: url('ornament/midlefloral.png') no-repeat center;
+      background-size: contain;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Card modern */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--gold);
+      opacity: 0;
+      transition: all 1.2s ease-out; /* lebih lambat */
+      z-index: 2;
+    }
+    .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--primary-color); }
+
+    /* Slide animation */
+    .slide-left { transform: translateX(-80px); }
+    .slide-right { transform: translateX(80px); }
+    .slide-up { transform: translateY(80px); }
+    .card.show { opacity: 1; transform: translate(0); }
+
+    /* Map */
+    .map-container { width: 100%; height: 300px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+    .map-button {
+      display: inline-block; padding: 12px 28px; background-color: var(--primary-color);
+      color: white; text-decoration: none; border-radius: 30px;
+      font-weight: bold; transition: transform 0.3s, background 0.3s;
+    }
+    .map-button:hover { transform: scale(1.05); background: #000; }
+
+    /* Gallery modern - Masonry + Animasi */
+    .gallery-grid {
+      column-count: 2;
+      column-gap: 12px;
+      width: 100%;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px) scale(0.9) rotate(-2deg);
+      transition: all 1s ease-out;
+      break-inside: avoid;
+      margin-bottom: 12px;
+    }
+    .gallery-grid img.show {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      filter: brightness(1.1);
+    }
+
+    /* Form */
+    .form-card { text-align: left; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 10px; border: 1px solid #ddd;
+      border-radius: 8px; font-family: var(--font-body);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .submit-button {
+      width: 100%; padding: 12px; border: none; border-radius: 25px;
+      background-color: var(--primary-color); color: white;
+      font-size: 1rem; cursor: pointer; transition: transform 0.3s, background 0.3s;
+    }
+    .submit-button:hover { transform: scale(1.02); background: #000; }
+
+    /* Wishes */
+    .wishes-container {
+      width: 100%; margin-top: 30px; max-height: 400px;
+      overflow-y: auto; text-align: left; padding-right: 10px;
+    }
+    .wish-item {
+      background: #fff; border-radius: 10px;
+      padding: 15px; margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-left: 5px solid var(--primary-color);
+      position: relative;
+    }
+    .wish-item::before {
+      content: "💌";
+      position: absolute; top: 10px; right: 10px;
+      font-size: 1rem;
+    }
+    .wish-item .nama { font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
+
+    /* Bottom nav */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 480px; height: 60px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      display: flex; justify-content: space-around; align-items: center;
+      border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); z-index: 1000;
+    }
+    .nav-link {
+      display: flex; flex-direction: column; align-items: center;
+      text-decoration: none; color: #999;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .nav-link i { font-size: 1.5rem; }
+    .nav-link span { font-size: 0.7rem; }
+    .nav-link.active { color: var(--primary-color); transform: translateY(-5px); }
+
+    /* Music */
+    .music-control {
+      position: fixed; top: 20px; right: 20px; width: 42px; height: 42px;
+      background-color: rgba(0,0,0,0.5); color: white; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; z-index: 1001; border: 1px solid white;
+    }
+    .music-control i { font-size: 1.5rem; }
+    .music-control.playing i { animation: spin 3s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* Animasi teks */
+    .fade-up, .fade-left, .fade-right, .zoom-in {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: all 1.2s ease-out;
+    }
+    .fade-up.show, .fade-left.show, .fade-right.show, .zoom-in.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .glow-text { text-shadow: 0 0 10px rgba(255,255,255,0.7), 0 0 20px rgba(255,215,0,0.5); }
+  </style>
+</head>
+<body>
+
+<div id="music-control" class="music-control"><i class='bx bx-music'></i></div>
+<audio id="background-music" loop>
+  <source src="Yovie & Nuno - Janji Suci (Video Clip).mp3" type="audio/mpeg">
+  Browser Anda tidak mendukung elemen audio.
+</audio>
+  <script>
+    const audio = document.getElementById("background-music");
+    let musicStarted = false;
+
+    // Trigger musik saat user scroll pertama kali
+    window.addEventListener("scroll", function() {
+      if (!musicStarted) {
+        audio.play().then(() => {
+          console.log("Musik mulai diputar setelah scroll");
+        }).catch(err => {
+          console.log("Gagal autoplay:", err);
+        });
+        musicStarted = true; // biar ga play berkali-kali
+      }
+    });
+  </script>
+
+
+<div class="batik-bg"></div>
+
+<main class="container">
+
+  <!-- HOME -->
+  <section id="home" class="page">
+    <div class="intro-text fade-up">
+      <p class="glow-text">The Wedding Of</p>
+      <h1 class="zoom-in">Agus &</h1>
+      <h1 class="zoom-in">Yuni</h1>
+      <p class="fade-left">Kamis, 25 September 2025</p>
+    </div>
+    <a href="#acara" class="scroll-down-icon fade-right"><i class='bx bx-chevron-down'></i></a>
+  </section>
+
+  <!-- QUOTE -->
+  <section id="text" class="page">
+    <div class="ornament ornament-top-right"><img src="ornament/floral1.png" alt="floral"></div>
+    <div class="ornament ornament-bottom-left"><img src="ornament/floral2.png" alt="floral"></div>
+    <div class="card slide-up">
+      <p style="font-style: italic;">
+        “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang.”
+      </p>
+      <span>(Q.S. Ar-Rum : 21)</span>
+    </div>
+  </section>
+
+<!-- INFO MEMPELAI -->
+<section id="text2" class="page">
+  <div class="intro-text fade-up">
+    <h2 class="text">Assalamu’alaikum Warahmatullahi Wabarakatuh</h2>
+    <p style="margin-top:15px;" class="fade-right">
+      Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara(i) untuk hadir dan memberikan doa restu pada pernikahan kami:
+    </p>
+  </div>
+
+  <!-- Profil Mempelai -->
+  <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 30px;">
+
+    <!-- Mempelai Pria -->
+    <div class="card slide-left" style="text-align: center;">
+      <img src="img/pria.jpeg" alt="Mempelai Pria"
+           style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; margin-bottom: 15px; border: 4px solid var(--gold);">
+      <h3 class="text2">Agus Dwi Setyawan</h3>
+      <p>Putra dari Bpk. Sukamto & Alm. Winarsih</p>
+    </div>
+
+    <!-- Mempelai Wanita -->
+    <div class="card slide-right" style="text-align: center;">
+      <img src="img/wanita.jpeg" alt="Mempelai Wanita"
+           style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; margin-bottom: 15px; border: 4px solid var(--gold);">
+      <h3 class="text2">Yuni Setyowati</h3>
+      <p>Putri dari Alm. Bpk Suwono & Ibu Karti</p>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- DETAIL ACARA -->
+  <section id="acara" class="page">
+    <div class="section-title fade-up"><h2>Detail Acara</h2></div>
+    <div class="card slide-left">
+      <h3><i class='bx bx-heart'></i> Akad Nikah</h3>a
+      <p><strong>Kamis, 25 September 2025</strong></p>
+      <p>Pukul 08:00 WIB - Selesai</p>
+      <p>Rumah Mempleai Pria</p>
+    </div>
+    <!--  
+    <div class="card slide-right">
+      <h3><i class='bx bxs-party'></i> Resepsi</h3>
+      <p><strong>Kamis, 25 September 2025</strong></p>
+      <p>Pukul 19:00 WIB - Selesai</p>
+      <p>Rumah Mempelai Pria</p>
+    </div>
+  </section>-->
+
+  <!-- LOKASI -->
+  <section id="lokasi" class="page">
+    <div class="section-title fade-right"><h2>Lokasi Acara</h2></div>
+    <div class="card slide-up">
+      <h3>Tempat Acara</h3>
+      <p>Rumah Mempelai Pria</p>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d831.3269784244445!2d112.12717965200055!3d-7.631433716291144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78441a6a4f1159%3A0xd87b499e6f3b1783!2s949G%2B4QC%2C%20Jl.%20Diponegoro%2C%20RT.1%2FRW.5%2C%20DUSUN%20TURUS%2C%20Bulu%2C%20Kec.%20Purwoasri%2C%20Kabupaten%20Kediri%2C%20Jawa%20Timur%2064154!5e0!3m2!1sid!2sid!4v1757915818769!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <a href="https://maps.app.goo.gl/Hkagv5WQjrz6cnLPA" target="_blank" class="map-button">
+        <i class='bx bxs-navigation'></i> Buka di Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section id="galeri" class="page">
+    <div class="section-title fade-up"><h2>Galeri Momen</h2></div>
+    <div class="gallery-grid">
+      <img src="galery/img1.jpeg" alt="Foto 1">
+      <img src="galery/img2.jpeg" alt="Foto 2">
+      <img src="galery/img4.jpeg" alt="Foto 3">
+      <img src="galery/img5.jpeg" alt="Foto 4">
+    </div>
+  </section>
+
+  <!-- UCAPAN -->
+  <section id="ucapan" class="page">
+    <div class="section-title fade-up"><h2>Kirim Ucapan & Doa</h2></div>
+    <div class="card form-card slide-up">
+      <form id="wishesForm">
+        <div class="form-group">
+          <label for="nama">Nama Anda</label>
+          <input type="text" id="nama" name="nama" required>
+        </div>
+        <div class="form-group">
+          <label for="pesan">Pesan & Doa</label>
+          <textarea id="pesan" name="pesan" required></textarea>
+        </div>
+        <button type="submit" class="submit-button">Kirim</button>
+      </form>
+    </div>
+    <div class="wishes-container" id="wishesContainer"></div>
+  </section>
+
+</main>
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+  <a href="#home" class="nav-link active"><i class='bx bx-home'></i><span>Home</span></a>
+  <a href="#acara" class="nav-link"><i class='bx bx-calendar'></i><span>Acara</span></a>
+  <a href="#galeri" class="nav-link"><i class='bx bx-camera'></i><span>Galeri</span></a>
+  <a href="#ucapan" class="nav-link"><i class='bx bx-message'></i><span>Ucapan</span></a>
+</div>
+
+<script>
+  // Music toggle
+  const musicControl = document.getElementById('music-control');
+  const bgMusic = document.getElementById('background-music');
+  musicControl.addEventListener('click', () => {
+    if(bgMusic.paused) { bgMusic.play(); musicControl.classList.add('playing'); }
+    else { bgMusic.pause(); musicControl.classList.remove('playing'); }
+  });
+
+  // Intersection Observer untuk animasi
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) { entry.target.classList.add('show'); }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.fade-up, .fade-left, .fade-right, .zoom-in, .card').forEach(el => observer.observe(el));
+
+  // Animasi gallery muncul 1 per 1
+  const galleryImages = document.querySelectorAll('.gallery-grid img');
+  galleryImages.forEach((img, index) => {
+    const imgObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          setTimeout(() => { entry.target.classList.add('show'); }, index * 200);
+        }
+      });
+    }, { threshold: 0.3 });
+    imgObserver.observe(img);
+  });
+
+
+
+  // Bottom nav active scroll
+  const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY;
+    navLinks.forEach(link => {
+      const section = document.querySelector(link.getAttribute('href'));
+      if(section.offsetTop - 100 <= scrollPos && section.offsetTop + section.offsetHeight - 100 > scrollPos){
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  });
+
+</script>
+<script>
+  // Form kirim ucapan
+  document.getElementById("wishesForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("simpan_ucapan.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+      if (result.trim() === "success") {
+        alert("Ucapan berhasil dikirim!");
+        this.reset();
+        loadUcapan();
+      } else {
+        alert("Gagal menyimpan: " + result);
+      }
+    })
+    .catch(error => {
+      alert("Error: " + error);
+    });
+  });
+
+  // Load ucapan
+  function loadUcapan() {
+    fetch("ambil_ucapan.php")
+      .then(response => response.json())
+      .then(data => {
+        let container = document.getElementById("wishesContainer");
+        container.innerHTML = "";
+        data.forEach(row => {
+          let div = document.createElement("div");
+          div.className = "wish-item";
+          div.innerHTML = `<div class="nama">${row.nama}</div>
+                           <div class="pesan">${row.pesan}</div>
+                           <small>${row.waktu}</small>`;
+          container.appendChild(div);
+        });
+      });
+  }
+
+  // Panggil pertama kali saat halaman dibuka
+  loadUcapan();
+</script>
+
+
+
+
+</body>
+</html>

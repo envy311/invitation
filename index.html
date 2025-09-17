@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Pernikahan | Putra & Putri</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+<style>
+:root {
+    --primary-color: #d4af37;
+    --font-script: 'Imperial Script', cursive;
+    --font-body: 'Raleway', sans-serif;
+    --gold: #22221f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-body);
+    font-size: 14px;
+    overflow: hidden;
+}
+
+/* Welcome Page */
+.welcome-page {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    background: url('galery/img3.jpeg') center center / cover no-repeat;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.welcome-page::before {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background-color: rgba(0,0,0,0.35); /* overlay gelap supaya teks terlihat */
+    z-index: 1;
+}
+
+.welcome-page.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    max-width: 400px;
+    color: white;
+}
+
+.guest-name { 
+    font-family: var(--font-script); 
+    font-size: 2.8rem; 
+    margin: 10px 0; 
+}
+
+.section-title-small { 
+    font-family: var(--font-script); 
+    font-size: 1.8rem; 
+    margin-bottom: 15px; 
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0 30px;
+}
+
+.countdown-item {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 60px;
+    text-align: center;
+}
+.countdown-item span { font-size: 1.5rem; font-weight: bold; display: block; }
+.countdown-item p { font-size: 0.7rem; margin-top: 5px; }
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--gold);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+.cta-button:hover { transform: scale(1.05); }
+
+.fade-up, .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+.fade-up.show, .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<div id="welcome-page" class="welcome-page">
+    <div class="welcome-content">
+        <p class="fade-up">Kepada Yth.</p>
+        <p class="guest-name fade-in">Bapak/Ibu Tamu</p>
+        <p class="fade-up">Dengan hormat, izinkan kami mengundang Anda untuk merayakan cinta kami.</p>
+
+        <div class="countdown-timer fade-up">
+            <h2 class="section-title-small">Countdown Menuju Hari Bahagia</h2>
+            <div id="countdown" class="countdown">
+                <div class="countdown-item">
+                    <span id="days">00</span>
+                    <p>Hari</p>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">00</span>
+                    <p>Jam</p>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">00</span>
+                    <p>Menit</p>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">00</span>
+                    <p>Detik</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="tes.html?playmusic=true" id="open-invitation" class="cta-button fade-up">Buka Undangan</a>
+
+    </div>
+</div>
+
+<script>
+    // Ambil nama tamu dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to') || 'Tamu Undangan';
+    document.querySelector('.guest-name').innerText = guestName;
+
+    // Countdown
+    const weddingDate = new Date('September 25, 2025 08:00:00').getTime();
+    const countdownFunction = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        if(distance < 0){
+            clearInterval(countdownFunction);
+            document.getElementById('countdown').innerHTML = "Pernikahan telah berlangsung!";
+            return;
+        }
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+        const seconds = Math.floor((distance % (1000*60))/1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2,'0');
+        document.getElementById('hours').innerText = String(hours).padStart(2,'0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2,'0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2,'0');
+    }, 1000);
+
+    // Animasi fade awal
+    setTimeout(()=> {
+        document.querySelectorAll('.fade-up, .fade-in').forEach(el=>el.classList.add('show'));
+    }, 500);
+
+    // Tombol buka undangan
+    const welcomePage = document.getElementById('welcome-page');
+    const openButton = document.getElementById('open-invitation');
+    openButton.addEventListener('click', function(e){
+        e.preventDefault();
+        welcomePage.classList.add('hide'); // fade out
+        setTimeout(() => {
+            welcomePage.style.display = 'none';
+            document.body.style.overflowY = 'auto'; // aktifkan scroll
+            window.location.href = 'tes.html'; // redirect ke halaman undangan
+        }, 1200);
+    });
+</script>
+
+</body>
+</html>
