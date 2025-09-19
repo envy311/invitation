@@ -45,7 +45,7 @@ body {
     position: absolute;
     top:0; left:0;
     width:100%; height:100%;
-    background-color: rgba(0,0,0,0.35); /* overlay gelap supaya teks terlihat */
+    background-color: rgba(0,0,0,0.35);
     z-index: 1;
 }
 
@@ -119,6 +119,8 @@ body {
 
 <div id="welcome-page" class="welcome-page">
     <div class="welcome-content">
+        <p class="fade-up">Kepada Yth.</p>
+        <p class="guest-name fade-in">Bapak/Ibu Tamu</p>
         <p class="fade-up">Dengan hormat, izinkan kami mengundang Anda untuk merayakan cinta kami.</p>
 
         <div class="countdown-timer fade-up">
@@ -143,12 +145,18 @@ body {
             </div>
         </div>
         
-        <a href="tes.html?playmusic=true" id="open-invitation" class="cta-button fade-up">Buka Undangan</a>
-
+        <a href="#" id="open-invitation" class="cta-button fade-up">Buka Undangan</a>
     </div>
 </div>
 
 <script>
+    // Ambil nama tamu dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to') 
+        ? decodeURIComponent(urlParams.get('to')) 
+        : 'Tamu Undangan';
+    document.querySelector('.guest-name').innerText = guestName;
+
     // Countdown
     const weddingDate = new Date('September 25, 2025 08:00:00').getTime();
     const countdownFunction = setInterval(function() {
@@ -184,13 +192,13 @@ body {
         setTimeout(() => {
             welcomePage.style.display = 'none';
             document.body.style.overflowY = 'auto'; // aktifkan scroll
-            window.location.href = 'tes.html'; // redirect ke halaman undangan
+
+            // Bawa query string ke tes.html
+            const queryString = window.location.search;
+            window.location.href = 'tes.html' + queryString;
         }, 1200);
     });
 </script>
 
 </body>
 </html>
-
-
-
